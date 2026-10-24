@@ -1,0 +1,423 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Letter for Saturday</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=DM+Sans:wght@400;500;700&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout: one centered stage. The envelope opens into a letter card, and the Yes answer swaps the card for a confirmation. */
+:root {
+  --bg: #EDEBFA;
+  --ink: #211C3F;
+  --muted: #5E5984;
+  --paper: #FFF9FB;
+  --paper-edge: #E4D9EA;
+  --env-back: #EDA7BC;
+  --env-front: #F6C6D4;
+  --env-flap: #F9D7E1;
+  --accent: #D92A60;
+  --accent-ink: #FFFFFF;
+  --spark: #F5B82E;
+  --violet: #6C5CE7;
+  --teal: #19A596;
+  --tint: #F3E4EC;
+  --line: #D9D4EF;
+  --shadow: 33 28 63;
+  --display: 'Bricolage Grotesque', 'Trebuchet MS', system-ui, sans-serif;
+  --body: 'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --hand: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #15122B;
+    --ink: #F2EEFF;
+    --muted: #AEA8D6;
+    --paper: #231E42;
+    --paper-edge: #3A3463;
+    --env-back: #A8426A;
+    --env-front: #C85580;
+    --env-flap: #D8668F;
+    --accent: #FF6B93;
+    --accent-ink: #2A0E1B;
+    --spark: #FFCE54;
+    --violet: #9B8CFF;
+    --teal: #3CD6C4;
+    --tint: #342C5A;
+    --line: #3A3463;
+    --shadow: 0 0 0;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #15122B;
+  --ink: #F2EEFF;
+  --muted: #AEA8D6;
+  --paper: #231E42;
+  --paper-edge: #3A3463;
+  --env-back: #A8426A;
+  --env-front: #C85580;
+  --env-flap: #D8668F;
+  --accent: #FF6B93;
+  --accent-ink: #2A0E1B;
+  --spark: #FFCE54;
+  --violet: #9B8CFF;
+  --teal: #3CD6C4;
+  --tint: #342C5A;
+  --line: #3A3463;
+  --shadow: 0 0 0;
+  color-scheme: dark;
+}
+
+html { height: 100%; }
+body {
+  min-height: 100%;
+  margin: 0;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  padding-block: 24px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  background: var(--bg);
+  color: var(--ink);
+  font: 16px/1.55 var(--body);
+}
+.stage { width: 100%; display: grid; justify-items: center; }
+.scene { display: grid; justify-items: center; gap: 22px; text-align: center; }
+
+.kicker { margin: 0; font-family: var(--hand); font-size: 32px; line-height: 1.1; color: var(--accent); }
+.tap { margin: 0; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+/* Envelope */
+.env {
+  --w: min(84vw, 340px);
+  position: relative;
+  width: var(--w);
+  aspect-ratio: 3 / 2;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  perspective: 900px;
+  filter: drop-shadow(0 14px 16px rgb(var(--shadow) / .28));
+  animation: bob 3.2s ease-in-out infinite;
+  -webkit-tap-highlight-color: transparent;
+}
+.env:focus-visible { outline: 3px solid var(--accent); outline-offset: 10px; border-radius: 10px; }
+.env > span { position: absolute; display: block; }
+.env .back { inset: 0; z-index: 0; background: var(--env-back); border-radius: 10px; }
+.env .note {
+  left: 8%; right: 8%; top: 8%; bottom: 8%; z-index: 2;
+  background: var(--paper);
+  border-radius: 6px;
+  transition: transform .8s .35s cubic-bezier(.2, .7, .2, 1);
+}
+.env .note::before, .env .note::after {
+  content: ""; position: absolute; left: 12%; height: 6px; border-radius: 3px; background: var(--line);
+}
+.env .note::before { top: 22%; width: 52%; }
+.env .note::after { top: 40%; width: 36%; }
+.env .front {
+  inset: 0; z-index: 3;
+  background: var(--env-front);
+  border-radius: 10px;
+  clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%);
+}
+.env .flap {
+  left: 0; right: 0; top: 0; height: 58%; z-index: 4;
+  background: var(--env-flap);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: top center;
+  transition: transform .6s ease, z-index 0s .3s;
+}
+.env .seal {
+  left: 50%; top: 58%; z-index: 5;
+  width: 44px; height: 44px; margin: -22px 0 0 -22px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--accent);
+  transition: opacity .3s ease, transform .3s ease;
+}
+.env .seal svg { width: 22px; height: 22px; fill: var(--accent-ink); }
+.env.open { animation: none; cursor: default; }
+.env.open .flap { transform: rotateX(180deg); z-index: 1; }
+.env.open .note { transform: translateY(-34%); }
+.env.open .seal { opacity: 0; transform: scale(.4); }
+
+@keyframes bob { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-8px) rotate(1deg); } }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+
+/* Letter */
+.letter {
+  width: min(100%, 460px);
+  box-sizing: border-box;
+  padding: 28px 24px 24px;
+  background: var(--paper);
+  border: 1px solid var(--paper-edge);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px -18px rgb(var(--shadow) / .5);
+  animation: rise .7s cubic-bezier(.2, .8, .2, 1) both;
+}
+.greet { margin: 0 0 6px; font-family: var(--hand); font-size: 38px; line-height: 1.05; color: var(--accent); }
+.letter p { margin: 0 0 14px; }
+.when { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 18px 0 14px; }
+.when .day { font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.when .date { font-family: var(--display); font-weight: 700; font-size: clamp(30px, 9vw, 38px); line-height: 1; letter-spacing: -.01em; }
+
+.plan { list-style: none; margin: 0 0 22px; padding: 0; display: grid; gap: 10px; }
+.plan li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: center; }
+.plan .ico { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 12px; background: var(--tint); color: var(--accent); }
+.plan .ico svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.plan b { display: block; font-weight: 700; line-height: 1.25; }
+.plan span.sub { display: block; font-size: 14px; color: var(--muted); line-height: 1.35; }
+
+.ask { margin: 0; font-family: var(--display); font-weight: 700; font-size: clamp(26px, 7.4vw, 32px); line-height: 1.12; text-wrap: balance; }
+.choices {
+  position: relative;
+  height: 150px;
+  margin-top: 6px;
+  display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 16px;
+}
+.btn {
+  font: 700 17px/1 var(--body);
+  padding: 15px 26px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.btn.yes { background: var(--accent); color: var(--accent-ink); transition: transform .35s cubic-bezier(.3, 1.6, .5, 1); }
+.btn.no { background: transparent; color: var(--ink); border-color: var(--line); transition: transform .35s cubic-bezier(.3, 1.3, .5, 1); touch-action: manipulation; }
+.aside { min-height: 22px; margin: 0; text-align: center; font-size: 14px; color: var(--muted); }
+.sign { margin: 12px 0 0; font-family: var(--hand); font-size: 30px; line-height: 1; color: var(--ink); }
+.ps { margin: 14px 0 0; font-size: 14px; color: var(--muted); }
+
+/* Yes */
+.big { margin: 0 0 8px; font-family: var(--display); font-weight: 700; font-size: clamp(36px, 11vw, 48px); line-height: 1; letter-spacing: -.02em; }
+.msgbox {
+  margin: 4px 0 12px; padding: 12px 14px;
+  background: var(--tint); border-radius: 12px;
+  font-size: 15px; user-select: all; -webkit-user-select: all;
+}
+.btn.copy { background: var(--ink); color: var(--bg); }
+.status { margin: 10px 0 0; min-height: 22px; font-size: 14px; color: var(--muted); }
+
+#confetti { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+@media (prefers-reduced-motion: reduce) {
+  .env { animation: none; }
+  .letter { animation: none; }
+  .env .note, .env .flap, .env .seal, .btn.yes, .btn.no { transition: none; }
+}
+</style>
+
+<main class="stage">
+  <section class="scene" id="s-env">
+    <p class="kicker">Confidential. Intended recipient: Coconut.</p>
+    <button class="env" id="env" type="button" aria-label="Open the letter">
+      <span class="back"></span>
+      <span class="note"></span>
+      <span class="front"></span>
+      <span class="flap"></span>
+      <span class="seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+    </button>
+    <p class="tap">Tap the envelope</p>
+  </section>
+
+  <article class="letter" id="s-letter" hidden>
+    <h1 class="greet" id="greet">Hey you,</h1>
+    <p>Our Wednesdays have been the best part of my week. So I'm promoting them from "hanging out" to "a real plan with a real reservation."</p>
+
+    <div class="when">
+      <span class="day">Saturday</span>
+      <span class="date">November 14</span>
+    </div>
+
+    <ul class="plan">
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v7M4.500 3v4.500a2.500 2.500 0 0 0 5 0V3M7 10v11M17 21V3c-2.200 1.600-3 4.200-3 7.500h3"/></svg></span>
+        <span><b>Dinner</b><span class="sub">Somewhere good. My treat. Dessert is allowed.</span></span>
+      </li>
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+        <span><b>Karaoke</b><span class="sub">You pick the songs. I'll provide moral support and questionable pitch.</span></span>
+      </li>
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8zM9 8a3 3 0 0 1 6 0"/></svg></span>
+        <span><b>Some light shopping</b><span class="sub">Light. I'll carry the bags. That's the whole job description.</span></span>
+      </li>
+      <li>
+        <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="11" cy="13" rx="8" ry="5.500"/><path d="M8 8v10M12 7.500v11M16 9v8M18.500 9c1-1.500 2-2 3-2"/></svg></span>
+        <span><b>Or whatever the isopod wishes</b><span class="sub">Final decision. Non-negotiable.</span></span>
+      </li>
+    </ul>
+
+    <p>I learned what happens when I stop being intentional with someone this good, and I'm not doing that again. If you're in, I'll gladly run away with you. After dinner, though. I made a reservation.</p>
+
+    <h2 class="ask">Will you go out with me?</h2>
+    <p style="margin:8px 0 0;color:var(--muted);font-size:15px">And I mean officially. Not just a date. Us. (There is no paperwork. I checked.)</p>
+
+    <div class="choices" id="choices">
+      <button class="btn yes" id="yes" type="button">Yes</button>
+      <button class="btn no" id="no" type="button">No</button>
+    </div>
+    <p class="aside" id="aside" aria-live="polite"></p>
+    <p class="sign">Ethan</p>
+    <p class="ps">P.S. One John Mayer song is happening at karaoke. I'm not taking questions or requests.</p>
+  </article>
+
+  <article class="letter" id="s-yes" hidden>
+    <p class="greet">Yay!</p>
+    <h2 class="big">It's a date.</h2>
+    <p>Saturday, November 14. Dinner, karaoke, and some very light shopping. Wear shoes you can walk and sing in. Mine are ready. I stretched once.</p>
+    <p style="margin-bottom:6px;color:var(--muted);font-size:15px">Send him the good news:</p>
+    <p class="msgbox" id="msg">Yes! November 14th, I'm in. Let's make it official. &#10084;</p>
+    <button class="btn copy" id="copy" type="button">Copy the text</button>
+    <p class="status" id="status" aria-live="polite"></p>
+  </article>
+</main>
+
+<canvas id="confetti" aria-hidden="true"></canvas>
+
+<script>
+(function () {
+  var HER_NAME = "Coconut";
+
+  var $ = function (id) { return document.getElementById(id); };
+  var env = $("env"), sEnv = $("s-env"), sLetter = $("s-letter"), sYes = $("s-yes");
+  var yes = $("yes"), no = $("no"), choices = $("choices"), aside = $("aside");
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (HER_NAME) $("greet").textContent = "Hey " + HER_NAME + ",";
+
+  /* Open the envelope */
+  var opened = false;
+  env.addEventListener("click", function () {
+    if (opened) return;
+    opened = true;
+    env.classList.add("open");
+    env.setAttribute("aria-label", "Letter opened");
+    setTimeout(function () {
+      sEnv.hidden = true;
+      sLetter.hidden = false;
+      window.scrollTo(0, 0);
+    }, reduce ? 0 : 1250);
+  });
+
+  /* The shy No button */
+  var LABELS = ["No", "Are you sure?", "Think about karaoke", "I'll carry ALL the bags", "Last chance", "You can't catch me"];
+  var ASIDES = ["", "Bold of you.", "Dessert is on me, remember.", "The reservation is already made.", "This button is nervous. Reasonably.", "It's running out of room."];
+  var MAX = 7, tries = 0, last = 0;
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function dodge(ev) {
+    if (ev && ev.preventDefault) ev.preventDefault();
+    var now = Date.now();
+    if (now - last < 260) return;
+    last = now;
+    tries++;
+
+    if (tries >= MAX) {
+      no.hidden = true;
+      aside.textContent = "The No button has left the chat.";
+      yes.style.transform = "scale(1.35)";
+      return;
+    }
+
+    var i = Math.min(tries, LABELS.length - 1);
+    no.textContent = LABELS[i];
+    aside.textContent = ASIDES[i];
+
+    var c = choices.getBoundingClientRect();
+    var baseL = no.offsetLeft, baseT = no.offsetTop;
+    var w = no.offsetWidth, h = no.offsetHeight;
+    var y = yes.getBoundingClientRect();
+    var pick = null;
+
+    for (var n = 0; n < 40 && !pick; n++) {
+      var x = rand(0, Math.max(0, c.width - w));
+      var t = rand(0, Math.max(0, c.height - h));
+      var L = c.left + x, T = c.top + t, R = L + w, B = T + h;
+      var clear = R < y.left - 10 || L > y.right + 10 || B < y.top - 10 || T > y.bottom + 10;
+      if (clear) pick = [x, t];
+    }
+    if (!pick) pick = [Math.max(0, c.width - w), Math.max(0, c.height - h)];
+
+    no.style.transform = "translate(" + (pick[0] - baseL) + "px," + (pick[1] - baseT) + "px)";
+    yes.style.transform = "scale(" + Math.min(1.4, 1 + tries * 0.07) + ")";
+  }
+
+  no.addEventListener("pointerenter", function (e) { if (e.pointerType === "mouse") dodge(e); });
+  no.addEventListener("pointerdown", dodge);
+  no.addEventListener("click", dodge);
+
+  /* Yes */
+  yes.addEventListener("click", function () {
+    sLetter.hidden = true;
+    sYes.hidden = false;
+    window.scrollTo(0, 0);
+    if (!reduce) confetti();
+  });
+
+  /* Copy the reply */
+  $("copy").addEventListener("click", function () {
+    var text = $("msg").textContent;
+    var status = $("status");
+    function fallback() {
+      var r = document.createRange();
+      r.selectNodeContents($("msg"));
+      var s = window.getSelection();
+      s.removeAllRanges();
+      s.addRange(r);
+      status.textContent = "Message selected. Press copy, then send it to Ethan.";
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () {
+        status.textContent = "Copied. Paste it into a text to Ethan.";
+      }, fallback);
+    } catch (e) { fallback(); }
+  });
+
+  /* Confetti */
+  function confetti() {
+    var cv = $("confetti"), ctx = cv.getContext("2d");
+    var dpr = window.devicePixelRatio || 1;
+    var W = window.innerWidth, H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr;
+    ctx.scale(dpr, dpr);
+    var cs = getComputedStyle(document.documentElement);
+    var colors = ["--accent", "--spark", "--violet", "--teal"].map(function (k) { return cs.getPropertyValue(k).trim() || "#E8366A"; });
+    var parts = [];
+    for (var i = 0; i < 150; i++) {
+      var a = rand(-Math.PI * 0.95, -Math.PI * 0.05);
+      var v = rand(7, 17);
+      parts.push({
+        x: W / 2, y: H * 0.55,
+        vx: Math.cos(a) * v * rand(.6, 1.2), vy: Math.sin(a) * v,
+        s: rand(6, 11), r: rand(0, 6.28), vr: rand(-.25, .25),
+        c: colors[i % colors.length]
+      });
+    }
+    var start = performance.now();
+    (function tick(now) {
+      var age = now - start;
+      ctx.clearRect(0, 0, W, H);
+      var alive = false;
+      parts.forEach(function (p) {
+        p.vy += 0.32; p.vx *= 0.992; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+        if (p.y < H + 20) alive = true;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, 1 - age / 4200);
+        ctx.translate(p.x, p.y); ctx.rotate(p.r);
+        ctx.fillStyle = p.c;
+        ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2);
+        ctx.restore();
+      });
+      if (alive && age < 4200) requestAnimationFrame(tick);
+      else ctx.clearRect(0, 0, W, H);
+    })(start);
+  }
+})();
+</script>
+
+</body></html>
